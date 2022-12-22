@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="">
+      <fieldset>
+        <input type="email" id="email" />
+        <p id="email-error" class="error"></p>
+        <input list="country" name="country" id="country-input"/></label>
+								<datalist id="country">
+								<!-- 		<option value="Chrome">
+										<option value="Firefox">
+										<option value="Internet Explorer">
+										<option value="Opera">
+										<option value="Safari">
+										<option value="Microsoft Edge"> -->
+								</datalist>
+        <p id="country-error" class="error"></p>
+        <input type="text" id="zip-code" minlength="5" />
+        <p id="zip-code-error" class="error"></p>
+        <input type="password" id="password" pattern="[A-Za-z]\w{7,14}$" />
+        <p id="password-error" class="error"></p>
+        <input
+          type="password"
+          id="password-confirmation"
+          pattern="[A-Za-z]\w{7,14}$"
+        />
+        <p id="password-confirmation-error" class="error"></p>
+      </fieldset>
+      <button>Submit</button>
+    </form>
+  </body>
+</html>
