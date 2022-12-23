@@ -10,14 +10,17 @@ const passwordConfirmation = document.getElementById("password-confirmation");
 const passwordConfirmationError = document.getElementById(
   "password-confirmation-error"
 );
+const button = document.querySelector("button");
+const form = document.querySelector("form");
+const fieldset = document.querySelector("fieldset");
 
 email.addEventListener("input", () => {
+  console.log(email.validity.typeMismatch);
   if (email.validity.typeMismatch) {
-    email.classList.add("invalid");
     emailError.innerText = "Entered value needs to be an email address.";
-  } else if (email.validity.valid) {
+  } else {
     emailError.innerText = "";
-    email.classList.remove("invalid");
+    email.setCustomValidity("");
   }
 });
 
@@ -288,31 +291,33 @@ const countryInput = document.getElementById("country-input");
 countryInput.addEventListener("input", () => {
   if (!countryList.includes(countryInput.value)) {
     countryError.innerText = "please type a correct country";
-    countryInput.classList.add("invalid");
+
+    countryInput.setCustomValidity("invalid");
   } else {
     countryError.innerText = "";
-    countryInput.classList.remove("invalid");
+
+    countryInput.setCustomValidity("");
   }
 });
 
 zipCode.addEventListener("input", () => {
-  if (!zipCode.validity.valid) {
+  console.log(zipCode.validity.tooShort);
+  if (zipCode.validity.tooShort) {
     zipCodeError.innerText = "Entered value needs to be a zip code.";
-    zipCode.classList.add("invalid");
-  } else if (zipCode.validity.valid) {
+  } else {
     zipCodeError.innerText = "";
-    zipCode.classList.remove("invalid");
+    zipCode.setCustomValidity("");
   }
 });
 
-function isPasswordGood(inputtxt) {
+/* function isPasswordGood(inputtxt) {
   var passw = /^[A-Za-z]\w{7,14}$/;
   if (inputtxt.value.match(passw)) {
     return true;
   } else {
     return false;
   }
-}
+} */
 
 /* password.addEventListener("input", () => {
   if (isPasswordGood(password)) {
@@ -324,22 +329,54 @@ function isPasswordGood(inputtxt) {
 }); */
 
 password.addEventListener("input", () => {
-  if (password.validity.valid) {
-    passwordError.innerText = "";
-    password.classList.remove("invalid");
-  } else {
+  console.log(password.validity.patternMismatch);
+  if (password.validity.patternMismatch) {
     passwordError.innerText =
       "Input Password must be between 7 to 15 characters which can contain only characters, numeric digits, underscore and the first character must be a letter";
-    password.classList.add("invalid");
+  } else {
+    passwordError.innerText = "";
+    password.setCustomValidity("");
   }
 });
 
 passwordConfirmation.addEventListener("input", () => {
   if (passwordConfirmation.value === password.value) {
     passwordConfirmationError.innerText = "";
-    passwordConfirmation.classList.remove("invalid");
+    passwordConfirmation.setCustomValidity("");
   } else {
     passwordConfirmationError.innerText = "Password doesnt match";
-    passwordConfirmation.classList.add("invalid");
+  }
+});
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+});
+
+form.addEventListener("submit", (event) => {
+  if (email.value.length === 0) {
+    emailError.innerText = "This text field id required";
+    email.setCustomValidity("invalid");
+  }
+  if (countryInput.value.length === 0) {
+    countryError.innerText = "This text field id required";
+    countryInput.setCustomValidity("invalid");
+  }
+  if (zipCode.value.length === 0) {
+    zipCodeError.innerText = "This text field id required";
+    zipCode.setCustomValidity("invalid");
+  }
+  if (password.value.length === 0) {
+    passwordError.innerText = "This text field id required";
+    password.setCustomValidity("invalid");
+  }
+  if (passwordConfirmation.value.length === 0) {
+    passwordConfirmationError.innerText = "This text field id required";
+    passwordConfirmation.setCustomValidity("invalid");
+  }
+
+  if (form.checkValidity()) {
+    alert("submitted");
+  } else {
+    alert("error");
   }
 });

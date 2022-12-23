@@ -1,7 +1,8 @@
-.invalid {
-  background-color: red;
-}
-
 .error {
   color: red;
+}
+
+input:invalid {
+  outline: 5px blue solid;
+  background-color: red;
 }
